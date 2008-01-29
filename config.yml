@@ -1,0 +1,17 @@
+irc:
+  host: irc.tty2.org
+  port: '6667'
+  nick: irc_cat
+  channel: '#irc_cat'
+
+http:
+  host: 0.0.0.0
+  port: '56780'
+
+tcp:
+  host: 0.0.0.0
+  port: '5678'
+  
+udp:
+  host: 0.0.0.0
+  port: '5678'

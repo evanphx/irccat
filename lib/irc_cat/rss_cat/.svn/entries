@@ -1,0 +1,16 @@
+8
+
+dir
+2
+http://svn.sharesource.org/svn/irccat/trunk/lib/irc_cat/rss_cat
+http://svn.sharesource.org/svn/irccat
+
+
+
+2007-12-07T11:14:48.032341Z
+2
+jordan
+
+
+svn:special svn:externals svn:needs-lock
+

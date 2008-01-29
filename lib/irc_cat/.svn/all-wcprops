@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/irccat/!svn/ver/2/trunk/lib/irc_cat
+END
+indifferent_access.rb
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/irccat/!svn/ver/2/trunk/lib/irc_cat/indifferent_access.rb
+END
+bot.rb
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/irccat/!svn/ver/3/trunk/lib/irc_cat/bot.rb
+END
+http_server.rb
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/irccat/!svn/ver/2/trunk/lib/irc_cat/http_server.rb
+END
+tcp_server.rb
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/irccat/!svn/ver/2/trunk/lib/irc_cat/tcp_server.rb
+END
