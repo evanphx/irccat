@@ -21,10 +21,11 @@ class Bot
 				val.each do |v| instance_eval("@#{key}.push('#{v}')") end
 			end
 		end
+		puts "Connecting to IRC #{@host}:#{@port} #{@channel}" 
 	end
   
 	def run
-		@socket = TCPSocket.open(@host, @port)     
+		@socket = TCPSocket.open(@host, @port)    
 		login
 		
     

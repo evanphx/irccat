@@ -1,5 +1,8 @@
 # The HTTP Server
 
+require 'json'
+require 'json/add/rails'
+
 class Index < Mongrel::HttpHandler
 	def process(request, response)
 		response.start(200) do |head,out|
@@ -22,17 +25,32 @@ class Send < Mongrel::HttpHandler
 	end
 end
 
+class Github < Mongrel::HttpHandler
+  
+  def initialize(bot, config); @bot = bot; @config = config; puts "Github enabled"; end
+  
+  def process(request, response)
+    response.start(200) do |head,out|
+      head["Content-Type"] = "text/plain"
+      js = CGI.parse(request.body.read)
+      puts js['payload'].join(',')
+      json = JSON.parse(js['payload'].join(','))
+      p json
+    end
+  end
+end
+
 module IrcCat
 	class HttpServer
-		def initialize(bot, config, host, ip)
+		def initialize(bot, config, ip, port)
 			@bot = bot
 			@config = config
-			h = Mongrel::HttpServer.new(host, ip)
+			puts "Starting HTTP (#{ip}:#{port})"
+			h = Mongrel::HttpServer.new(ip, port)
 			h.register("/", Index.new)
 			h.register("/send", Send.new(@bot, @config))
+			h.register("/github", Github.new(@bot, @config)) if @config['http']['github'] == true
 			h.run.join
-			
-			puts "I has Mongrel.!1"
 		end
 	end # HttpServer
 end # IrcCat

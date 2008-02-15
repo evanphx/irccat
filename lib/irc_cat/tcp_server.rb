@@ -4,6 +4,7 @@ module IrcCat
 		
 		def initialize(bot,config,ip='127.0.0.1',port='8080')
 			@socket = TCPserver.new(ip,port)
+			puts "Starting TCP (#{ip}:#{port})"
 			
 			loop do  
 				Thread.start(@socket.accept) do |s|

@@ -1,17 +1,21 @@
+# IRC connection 
 irc:
   host: irc.tty2.org
   port: '6667'
   nick: irc_cat
   channel: '#irc_cat'
 
+# HTTP Server
+
 http:
+  enabled: true
   host: 0.0.0.0
-  port: '56780'
+  port: '3489'
+  github: true
+
+# TCP Server
 
 tcp:
-  host: 0.0.0.0
-  port: '5678'
-  
-udp:
+  enabled: true
   host: 0.0.0.0
   port: '5678'
