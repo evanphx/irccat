@@ -28,6 +28,14 @@ class Bot
     @socket = TCPSocket.open(@host, @port)    
     login
     
+    trap(:INT) {
+      puts "Bye bye."
+      self.sexit('God^WConsole killed me')
+      sleep 1
+      @socket.close
+      exit
+    }
+
     
     threads=[]
     
@@ -66,6 +74,11 @@ class Bot
   # Say something funkeh
   def say(chan,msg)
     sendln "PRIVMSG #{chan} :#{msg}"
+  end
+  
+  # Send EXIT
+  def sexit(message='quit')
+    sendln("QUIT :#{message}")
   end
   
   private
