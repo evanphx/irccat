@@ -17,7 +17,7 @@ parser = OptionParser.new do |opts|
   opts.banner = <<BANNER
 iecho - just like echo but for irccat
 
-Usage: #{File.basename($0)} [options] <file>
+Usage: #{File.basename($0)} [options] text
 
 Options are:
 BANNER
