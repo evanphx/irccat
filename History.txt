@@ -1,3 +1,15 @@
+== 0.2.1 2008-02-17
+
+* 5 major improvement
+  * New binary: icat - cat for irccat
+  * New binary: iecho - echo for irccat
+  * New binary: irccat-config - configuration generator
+  * Code cleanup
+  * Documentation!
+* 2 minor improvement
+  * Small class: TcpClient
+  * The socket size is now a param
+
 == 0.2 2008-02-17
 
 * 3 major improvement

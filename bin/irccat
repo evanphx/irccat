@@ -59,8 +59,8 @@ Thread.new {
 }
 Thread.new {
   @tcp = IrcCat::TcpServer.new(@bot, @config, @config['tcp']['host'], @config['tcp']['port'])
-} if @config['tcp']['enabled'] == true
+} if @config['tcp']['enabled']
 Thread.new {
   @http = IrcCat::HttpServer.new(@bot, @config, @config['http']['host'], @config['http']['port'])
-} if @config['http']['enabled'] == true
+} if @config['http']['enabled']
 @bot.run

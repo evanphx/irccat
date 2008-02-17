@@ -1,8 +1,8 @@
 # The HTTP Server
 
 require 'mongrel'
-require 'irc_cat/http_server/send' if @config['http']['send'] == true
-require 'irc_cat/http_server/github' if @config['http']['github'] == true
+require 'irc_cat/http_server/send' if @config['http']['send']
+require 'irc_cat/http_server/github' if @config['http']['github']
 
 class Index < Mongrel::HttpHandler
   def process(request, response)
@@ -20,8 +20,8 @@ module IrcCat
       puts "Starting HTTP (#{ip}:#{port})"
       h = Mongrel::HttpServer.new(ip, port)
       h.register("/", Index.new)
-      h.register("/send", Send.new(@bot, @config)) if @config['http']['send'] == true
-      h.register("/github", Github.new(@bot, @config)) if @config['http']['github'] == true
+      h.register("/send", Send.new(@bot, @config)) if @config['http']['send']
+      h.register("/github", Github.new(@bot, @config)) if @config['http']['github']
       h.run.join
     end
   end # HttpServer
