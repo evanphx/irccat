@@ -11,7 +11,7 @@ puts "irccat 0.2 (http://irccat.rubyforge.org/)"
 
 Thread.new {
 @bot = IrcCat::Bot.new(:host => @config['irc']['host'], :port => @config['irc']['port'], 
-	:nick => @config['irc']['nick'], :channel => @config['irc']['channel'])
+  :nick => @config['irc']['nick'], :channel => @config['irc']['channel'])
 }
 
 Thread.new {
