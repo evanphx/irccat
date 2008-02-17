@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'lib/irc_cat/indifferent_access'
 require 'socket'
-require 'mongrel'
 require 'lib/irc_cat/bot'
 require 'lib/irc_cat/tcp_server'
 require 'lib/irc_cat/http_server'

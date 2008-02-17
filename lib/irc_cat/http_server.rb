@@ -1,5 +1,6 @@
 # The HTTP Server
 
+require 'mongrel'
 require 'json'
 require 'json/add/rails'
 
