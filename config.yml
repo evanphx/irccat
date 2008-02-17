@@ -11,7 +11,10 @@ http:
   enabled: true
   host: 0.0.0.0
   port: '3489'
+  # Enable post-receive stuff from Github
   github: true
+  # Allow send with http
+  send: true
 
 # TCP Server
 
