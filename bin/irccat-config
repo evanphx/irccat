@@ -1,0 +1,67 @@
+#!/usr/bin/env ruby
+#
+# Configuration generator for irccat
+#
+#  Created on 2008-2-17.
+#  Copyright (c) 2008. All rights reserved.
+
+require 'rubygems'
+require 'optparse'
+require 'yaml'
+require 'highline/import'
+
+def irccat_config
+  config = Hash.new
+  puts "== IRC Configuration"
+  config['irc'] = Hash.new
+  config['irc']['host'] = ask("Hostname:  ") { |q| q.default = "irc.freenode.net" }
+  config['irc']['port'] = ask("Port:  ") { |q| q.default = "6667" }
+  config['irc']['nick'] = ask("Nickname:  ") { |q| q.default = "irc_cat" }
+  config['irc']['channel'] = ask("Channel:  ") { |q| q.default = "#irc_cat" }
+  puts "\n== HTTP Configuration"
+  config['http'] = Hash.new
+  if agree("Enable HTTP?  ", true); config['http']['enabled'] = true; else; config['http']['enabled'] = false; end
+  if config['http']['enabled']
+    config['http']['host'] = ask("Hostname:  ") { |q| q.default = "0.0.0.0" }
+    config['http']['port'] = ask("Port:  ") { |q| q.default = "3489" }
+    if agree("Enable Basic HTTP send?  ", true); config['http']['send'] = true; else; config['http']['send'] = false; end
+    if agree("Enable Github?  ", true); config['http']['github'] = true; else; config['http']['github'] = false; end
+  end
+  puts "\n== TCP Configuration"
+  config['tcp'] = Hash.new
+  if agree("Enable TCP?  ", true); config['tcp']['enabled'] = true; else; config['tcp']['enabled'] = false; end
+  if config['tcp']['enabled']
+    config['tcp']['host'] = ask("Hostname:  ") { |q| q.default = "0.0.0.0" }
+    config['tcp']['port'] = ask("Port:  ") { |q| q.default = "5678" }
+    config['tcp']['size'] = ask("Socket size:  ") { |q| q.default = "400" }
+  end
+  puts "\n== Final steps"
+  file = ask("Configuration filename:  ") { |q| q.default = "config.yml" }
+  puts "Warning: File exists! If you choose yes now the file will be overwritted" if File.exists?(File.expand_path(file))  
+  if agree("Write configuration file?  ", true)
+    File.open(File.expand_path(file), "w") { |yfile| YAML.dump(config, yfile) }
+  else
+    exit
+  end
+end
+
+def help
+  puts "irccat-config - configuration generator for irccat\n"
+  puts "Usage: #{File.basename($0)} irccat|client > configfile.yml"
+  exit 0
+end
+
+if ARGV[0].nil?
+  help
+else
+  case ARGV[0]
+  when 'irccat'
+    irccat_config
+  when 'client'
+    #client_config
+    # TODO: todo :D
+    help
+  else
+    help
+  end
+end
