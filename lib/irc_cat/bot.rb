@@ -10,7 +10,7 @@ class Bot
   
   # Initialize the bot with default values
   def initialize(constructor = H.new)
-    @realname = 'irccat - http://irccat.rubyforge.org/'
+    @realname = "irc_cat #{IrcCat::VERSION::STRING} - http://irccat.rubyforge.org/"
     @refresh_rate = 10
     
     constructor.each do |key, val|

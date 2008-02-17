@@ -1,8 +1,8 @@
 # The HTTP Server
 
 require 'mongrel'
-require 'lib/irc_cat/http_server/send' if @config['http']['send'] == true
-require 'lib/irc_cat/http_server/github' if @config['http']['github'] == true
+require 'irc_cat/http_server/send' if @config['http']['send'] == true
+require 'irc_cat/http_server/github' if @config['http']['github'] == true
 
 class Index < Mongrel::HttpHandler
   def process(request, response)

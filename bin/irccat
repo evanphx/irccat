@@ -1,0 +1,66 @@
+#!/usr/bin/env ruby
+#
+#  Created on 2008-2-17.
+#  Copyright (c) 2008. All rights reserved.
+
+begin
+  require 'rubygems'
+rescue LoadError
+end
+
+require 'optparse'
+require 'yaml'
+
+OPTIONS = {
+  :path     => './config.yml'
+}
+MANDATORY_OPTIONS = %w(  )
+
+parser = OptionParser.new do |opts|
+  opts.banner = <<BANNER
+irc_cat - stdout for irc
+
+Usage: #{File.basename($0)} [options]
+
+Options are:
+BANNER
+  opts.separator ""
+  opts.on("-c", "--config=CONFIG", String,
+          "Path to the config file.",
+          "Default: ./config.yml") { |OPTIONS[:configfile]| }
+  opts.on("-h", "--help",
+          "Show this help message.") { puts opts; exit }
+  opts.parse!(ARGV)
+
+  if MANDATORY_OPTIONS && MANDATORY_OPTIONS.find { |option| OPTIONS[option.to_sym].nil? }
+    puts opts; exit
+  end
+end
+
+unless OPTIONS[:configfile].nil?
+  configfile = OPTIONS[:configfile]
+else
+  configfile = './config.yml'
+end
+
+exit unless File.exists?(configfile)
+@config = YAML.load_file(configfile)
+begin
+  require 'irc_cat'
+rescue LoadError
+  require 'lib/irc_cat'
+end
+
+threads = []
+puts "irccat #{IrcCat::VERSION::STRING} (http://irccat.rubyforge.org/)"
+
+Thread.new {
+  @bot = IrcCat::Bot.new(:host => @config['irc']['host'], :port => @config['irc']['port'], :nick => @config['irc']['nick'], :channel => @config['irc']['channel'])
+}
+Thread.new {
+  @tcp = IrcCat::TcpServer.new(@bot, @config, @config['tcp']['host'], @config['tcp']['port'])
+} if @config['tcp']['enabled'] == true
+Thread.new {
+  @http = IrcCat::HttpServer.new(@bot, @config, @config['http']['host'], @config['http']['port'])
+} if @config['http']['enabled'] == true
+@bot.run

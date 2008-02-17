@@ -1,0 +1,11 @@
+== 0.2 2008-02-17
+
+* 3 major improvement
+  * Github support in the http server
+  * Now released as a gem (thanks dr nic and newgem :-))
+  * Binary for launching irccats
+
+== 0.1 2008-01-01
+
+* 1 major improvement
+  * Initial release
