@@ -1,6 +1,6 @@
 # IRC connection 
 irc:
-  host: '213.251.168.24'
+  host: 'irc.tty2.org'
   port: '6667'
   nick: irc_cat
   channel: '#irc_cat'
