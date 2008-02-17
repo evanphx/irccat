@@ -1,0 +1,58 @@
+#!/usr/bin/env ruby
+#
+# `cat` for irccat :)
+#
+#  Created on 2008-2-17.
+#  Copyright (c) 2008. All rights reserved.
+
+require 'optparse'
+require 'yaml'
+
+OPTIONS = {
+  :profile     => 'default'
+}
+MANDATORY_OPTIONS = %w(  )
+
+parser = OptionParser.new do |opts|
+  opts.banner = <<BANNER
+icat - just like cat but for irccat
+
+Usage: #{File.basename($0)} [options] <files or STDIN>
+
+Options are:
+BANNER
+  opts.separator ""
+  opts.on("-p", "--profile=PROFILE", String,
+          "Profile to use (in ~/.irccat.yml).",
+          "Default: 'default'") { |OPTIONS[:profile]| }
+  opts.on("-h", "--help",
+          "Show this help message.") { puts opts; exit }
+  opts.parse!(ARGV)
+
+  if MANDATORY_OPTIONS && MANDATORY_OPTIONS.find { |option| OPTIONS[option.to_sym].nil? }
+    puts opts; exit
+  end
+end
+
+raise "Can't read configuration file (~/.irccat.yml)" unless File.exists?(File.expand_path("~/.irccat.yml"))
+@config = YAML.load_file(File.expand_path("~/.irccat.yml"))
+
+@profile = @config["#{OPTIONS[:profile]}"]
+raise "Can't find profile #{OPTIONS[:profile]} in ~/.irccat.yml" if @profile.nil?
+
+begin
+  require 'irc_cat/tcp_client'
+rescue LoadError
+  require 'lib/irc_cat/tcp_client'
+end
+
+if ARGV.empty?
+  puts "has stdin"
+  message = STDIN.read
+  IrcCat::TcpClient.notify(@profile['host'], @profile['port'], message)
+else
+  ARGV.each do |file|
+    raise "Can't read #{file}" unless File.exists?(File.expand_path(file))
+    IrcCat::TcpClient.notify(@profile['host'], @profile['port'], File.read(File.expand_path(file)))
+  end
+end
