@@ -28,6 +28,6 @@ http://irrcat.rubyforge.org/use.html
 * Repository: http://github.com/webs/irccat
 
 ----
-Copyright (c) 2007 Jordan Bracco <jordan@lifeisdead.net>
+Copyright (c) 2007-2008 Jordan Bracco <jordan@lifeisdead.net>
 Inspired by the irccat bot of Last.FM.
 Released under the MIT licence :)
