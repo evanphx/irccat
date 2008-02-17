@@ -43,7 +43,7 @@ else
   configfile = './config.yml'
 end
 
-exit unless File.exists?(configfile)
+raise "Can't read configuration file (#{configfile})" unless File.exists?(configfile)
 @config = YAML.load_file(configfile)
 begin
   require 'irc_cat'

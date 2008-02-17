@@ -1,0 +1,53 @@
+#!/usr/bin/env ruby
+#
+# `echo` for irccat :)
+#
+#  Created on 2008-2-17.
+#  Copyright (c) 2008. All rights reserved.
+
+require 'optparse'
+require 'yaml'
+
+OPTIONS = {
+  :profile     => 'default'
+}
+MANDATORY_OPTIONS = %w(  )
+
+parser = OptionParser.new do |opts|
+  opts.banner = <<BANNER
+iecho - just like echo but for irccat
+
+Usage: #{File.basename($0)} [options] <file>
+
+Options are:
+BANNER
+  opts.separator ""
+  opts.on("-p", "--profile=PROFILE", String,
+          "Profile to use (in ~/.irccat.yml).",
+          "Default: 'default'") { |OPTIONS[:profile]| }
+  opts.on("-h", "--help",
+          "Show this help message.") { puts opts; exit }
+  opts.parse!(ARGV)
+
+  if MANDATORY_OPTIONS && MANDATORY_OPTIONS.find { |option| OPTIONS[option.to_sym].nil? }
+    puts opts; exit
+  end
+end
+
+raise "Can't read configuration file (~/.irccat.yml)" unless File.exists?(File.expand_path("~/.irccat.yml"))
+@config = YAML.load_file(File.expand_path("~/.irccat.yml"))
+
+@profile = @config["#{OPTIONS[:profile]}"]
+raise "Can't find profile #{OPTIONS[:profile]} in ~/.irccat.yml" if @profile.nil?
+
+raise "Nothing to send" if ARGV.empty?
+
+begin
+  require 'irc_cat/tcp_client'
+rescue LoadError
+  require 'lib/irc_cat/tcp_client'
+end
+
+message = ARGV.join(' ')
+
+IrcCat::TcpClient.notify(@profile['host'], @profile['port'], message)

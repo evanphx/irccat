@@ -1,3 +1,4 @@
+require 'socket'
 module IrcCat
   class TcpClient
     def self.notify(ip,port,message)

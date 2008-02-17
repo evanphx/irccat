@@ -1,0 +1,4 @@
+# Configuration file for irccat clients (icat, iecho)
+default:
+  host: 127.0.0.1
+  port: 5678
