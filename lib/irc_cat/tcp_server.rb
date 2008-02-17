@@ -8,7 +8,7 @@ module IrcCat
       
       loop do  
         Thread.start(@socket.accept) do |s|
-          str = s.recv( 400 ) 
+          str = s.recv(config['tcp']['size']) 
           sstr = str.split(/\n/)
           sstr.each do |l|
             bot.say(config['irc']['channel'],"#{l}")
