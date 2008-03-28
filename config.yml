@@ -3,7 +3,9 @@ irc:
   host: 'irc.tty2.org'
   port: '6667'
   nick: irc_cat
+  nick_pass: foo
   channel: '#irc_cat'
+  channel_pass: bar
 
 # HTTP Server
 

@@ -55,7 +55,7 @@ threads = []
 puts "irccat #{IrcCat::VERSION::STRING} (http://irccat.rubyforge.org/)"
 
 Thread.new {
-  @bot = IrcCat::Bot.new(:host => @config['irc']['host'], :port => @config['irc']['port'], :nick => @config['irc']['nick'], :channel => @config['irc']['channel'])
+  @bot = IrcCat::Bot.new(:host => @config['irc']['host'], :port => @config['irc']['port'], :nick => @config['irc']['nick'], :channel => @config['irc']['channel'], :nick_pass => @config['irc']['nick_pass'], :channel_pass => @config['irc']['channel_pass'])
 }
 Thread.new {
   @tcp = IrcCat::TcpServer.new(@bot, @config, @config['tcp']['host'], @config['tcp']['port'])

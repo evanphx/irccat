@@ -6,7 +6,7 @@ module IrcCat
 # The IRC bot
 class Bot
 
-  attr_accessor :socket, :host, :port, :nick, :channel
+  attr_accessor :socket, :host, :port, :nick, :channel, :nick_pass, :channel_pass
   
   # Initialize the bot with default values
   def initialize(constructor = H.new)
@@ -106,12 +106,12 @@ class Bot
   # Automatic events
   
   def join_channels
-    sendln "JOIN #{@channel}"
+    sendln "JOIN #{@channel} #{@channel_pass}"
   end
   
   
   def auto_rejoin(channel)
-    sendln "JOIN ##{channel}"
+    sendln "JOIN ##{channel} #{@channel_pass}"
   end
   
   def login
@@ -119,6 +119,10 @@ class Bot
       #user = @mail.split("@")
       sendln "NICK #{@nick}"     
       sendln "USER irc_cat . . :#{@realname}"
+      if @nick_pass
+        puts "logging in to NickServ"
+        sendln "PRIVMSG NICKSERV :identify #{@nick_pass}"
+      end
     rescue Exception => e
       err e
     end
