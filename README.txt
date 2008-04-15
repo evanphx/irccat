@@ -24,7 +24,7 @@ http://irrcat.rubyforge.org/use.html
 * Website: http://irccat.rubyforge.org/
 * Project: http://rubyforge.org/projects/irccat
 * Downloads: http://rubyforge.org/frs/?group_id=5423
-* Bugs: http://rubyforge.org/tracker/?group_id=5423
+* Bugs: http://e1.lighthouseapp.com/projects/9966-irc-cat/overview
 * Repository: http://github.com/webs/irccat
 
 ----

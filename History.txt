@@ -1,9 +1,10 @@
-== 0.2.1 2008-02-17
+== 0.3 2008-??-??
 
 * 4 major improvement
   * New binary: icat - cat for irccat
   * New binary: iecho - echo for irccat
   * New binary: irccat-config - configuration generator
+  * Add support for NickServ protected logins and private channels [Thanks Michael D. Ivey]
   * Code cleanup
 * 3 minor improvement
   * Small class: TcpClient
