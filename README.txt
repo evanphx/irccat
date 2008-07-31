@@ -9,11 +9,11 @@ You can send messages to IRC from a TCP socket or from HTTP.
 
 = Configuration
 
-http://irrcat.rubyforge.org/install.html
+http://irccat.rubyforge.org/install.html
 
 = How-to use
 
-http://irrcat.rubyforge.org/use.html
+http://irccat.rubyforge.org/use.html
 
 = Authentication
 
@@ -24,7 +24,7 @@ http://irrcat.rubyforge.org/use.html
 * Website: http://irccat.rubyforge.org/
 * Project: http://rubyforge.org/projects/irccat
 * Downloads: http://rubyforge.org/frs/?group_id=5423
-* Bugs: http://e1.lighthouseapp.com/projects/9966-irc-cat/overview
+* Bugs: http://webs.lighthouseapp.com/projects/14710-irccat
 * Repository: http://github.com/webs/irccat
 
 ----
