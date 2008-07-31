@@ -11,7 +11,7 @@ class Github < Mongrel::HttpHandler
       post = CGI.parse(request.body.read)
       json = JSON.parse(post['payload'].join(','))
       json['commits'].each do |c|
-        @bot.say(@config['irc']['channel'],"[#{json['repository']['name']}] New commit by #{c.last['author']['name']} : #{c.last['message'].gsub(/\n(.*)/, '...')} - #{c.last['url']}")
+        @bot.say(@config['irc']['channel'],"[#{json['repository']['name']}] New commit by #{c['author']['name']} : #{c['message'].gsub(/\n(.*)/, '...')} - #{c['url']}")
       end
     end
   end
