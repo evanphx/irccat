@@ -10,8 +10,12 @@ class Github < Mongrel::HttpHandler
       head["Content-Type"] = "text/plain"
       post = CGI.parse(request.body.read)
       json = JSON.parse(post['payload'].join(','))
+      channel = @config['irc']['channel']
       json['commits'].each do |c|
-        @bot.say(@config['irc']['channel'],"[#{json['repository']['name']}] New commit by #{c['author']['name']} : #{c['message'].gsub(/\n(.*)/, '...')} - #{c['url']}")
+        topic = c['message'].split("\n").first
+        ref =   c['id'][0,7]
+        author = c['author']['name']
+        @bot.say channel, "#{topic} - #{ref} - #{author}"
       end
     end
   end
