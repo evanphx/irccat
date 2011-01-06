@@ -15,7 +15,11 @@ class Github < Mongrel::HttpHandler
       json = JSON.parse(post['payload'].join(','))
       channel = @config['irc']['channel']
       branch = json['ref'].split("/").last
-      json['commits'].each do |c|
+      commits = json['commits']
+
+      show = commits[0,7]
+
+      show.each do |c|
         topic = c['message'].split("\n").first
         ref =   c['id'][0,7]
         author = c['author']['name']
@@ -24,6 +28,10 @@ class Github < Mongrel::HttpHandler
         else
           @bot.say channel, "#{topic} - #{ref} - #{author}"
         end
+      end
+
+      if commits.size > 7
+        @bot.say channel, "#{commits.size - 7} more commits"
       end
     end
   end
