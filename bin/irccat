@@ -54,13 +54,12 @@ end
 threads = []
 puts "irccat #{IrcCat::VERSION::STRING} (http://irccat.rubyforge.org/)"
 
+@bot = IrcCat::Bot.new(:host => @config['irc']['host'], :port => @config['irc']['port'], :nick => @config['irc']['nick'], :channel => @config['irc']['channel'], :nick_pass => @config['irc']['nick_pass'], :channel_pass => @config['irc']['channel_pass'])
+
 Thread.new {
-  @bot = IrcCat::Bot.new(:host => @config['irc']['host'], :port => @config['irc']['port'], :nick => @config['irc']['nick'], :channel => @config['irc']['channel'], :nick_pass => @config['irc']['nick_pass'], :channel_pass => @config['irc']['channel_pass'])
-}
+  IrcCat::TcpServer.new(@bot, @config, @config['tcp']['host'], @config['tcp']['port'])
+} 
 Thread.new {
-  @tcp = IrcCat::TcpServer.new(@bot, @config, @config['tcp']['host'], @config['tcp']['port'])
-} if @config['tcp']['enabled']
-Thread.new {
-  @http = IrcCat::HttpServer.new(@bot, @config, @config['http']['host'], @config['http']['port'])
-} if @config['http']['enabled']
+  IrcCat::HttpServer.new(@bot, @config, @config['http']['host'], @config['http']['port'])
+} 
 @bot.run
